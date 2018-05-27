@@ -1,15 +1,15 @@
 <table width=100% border=>
-<tr><td colspan=2><h1>EXERCISE 01 - IoT : End to End scenario using MQTT and Gateway Cloud</h1></td></tr>
-<tr><td><h3>SAP Partner Workshop</h3></td><td><h1><img src="images/clock.png"> &nbsp;90 mins</h1></td></tr>
+<tr><td colspan=2><h1>EXERCISE 02 - IoT : Sending Data with REST via Internet of Things Gateway Cloud</h1></td></tr>
+<tr><td><h3>SAP Partner Workshop</h3></td><td><h1><img src="images/clock.png"> &nbsp;60 mins</h1></td></tr>
 </table>
 
 
 ## Description
-This document provides you with the exercises for the hands-on session on SAP Cloud Platform Internet of Things. This scenario will help you to go through the following activities:
+This document provides the hands-on session on SAP Cloud Platform Internet of Things 4.0 for the scenario based on Internet of Things Gateway Cloud using the REST protocol.
 
 * Creating Data Model
-* Device on boarding with Gateway Cloud using MQTT protocol.
-* Sending Data with Paho MQTT Client
+* Device on boarding with Gateway Cloud using REST protocol.
+* Sending data with curl
 * Consume Data via IoT Services Cockpit
 
 >NOTE: Use Google Chrome browser.

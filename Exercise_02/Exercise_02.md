@@ -23,7 +23,7 @@ This document provides the hands-on session on SAP Cloud Platform Internet of Th
 
 ## Goal
 
-The goal of this exercise is to create a new data model in the IoT Service cockpit, to onboard a new device and a new sensor with SAP Gateway Cloud using MQTT protocol, to send data with Paho MQTT Client and finally to consume them via IoT Services Cockpit and APIs
+The goal of this exercise is to create a new data model in the IoT Service cockpit, to onboard a new device and a new sensor with SAP Gateway Cloud using REST protocol, to send data with Paho REST Client and finally to consume them via IoT Services Cockpit and APIs
 
 
 
@@ -37,18 +37,11 @@ Here below are prerequisites for this exercise.
 
 ## Steps
 
-1. [Introduction](#introduction)
 1. [Creating device data model](#creating-device-data-model)
 1. [Device and sensor onboarding](#device-and-sensor-onboarding)
 1. [Sending messages via MQTT using Paho client](#mqtt-Paho)
 1. [Consuming and viewing sensor data](#consuming-sensor-data)
 1. [Working with commands](#working-with-commands)
-
-
-
-### <a name="introduction"></a> Introduction
-The SAP Cloud Platform Internet of Things Service enables customers and partners to develop, customize, and operate IoT business applications in the cloud. IoT Services provides Lifecycle management at scale for IoT devices from onboarding to decommissioning. It also provides a way to securely connect to remote devices over a broad variety of IoT protocols. It provides gateway Edge which provides on-premise IoT edge processing and also gateway cloud which does centralized cloud based processing. The **IoT cockpit** is the user interface of the solution and provides access to various functions. It is the main interface for users to interact with the Internet of Things core service. It can be used for creating users and tenants, for creating device data models, for device onboarding and for adding new networks. It can also be used to deploy interceptors, retrieve network logs, visualize the data which are being ingested via IoT devices/sensors.  
-	![](images/01.png)
 
 
 

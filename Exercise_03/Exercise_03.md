@@ -1,15 +1,15 @@
 <table width=100% border=>
-<tr><td colspan=2><h1>EXERCISE 01 - IoT : End to End scenario using MQTT and Gateway Cloud</h1></td></tr>
+<tr><td colspan=2><h1>EXERCISE 01 - IoT : Gateway Edge - MQTT</h1></td></tr>
 <tr><td><h3>SAP Partner Workshop</h3></td><td><h1><img src="images/clock.png"> &nbsp;90 mins</h1></td></tr>
 </table>
 
 
 ## Description
-This document provides you with the exercises for the hands-on session on SAP Cloud Platform Internet of Things. This scenario will help you to go through the following activities:
+This document provides you with the exercises for the hands-on session on SAP Cloud Platform, Internet of Things. This scenario will help you to go through the following activities:
 
-* Creating Data Model
+* IOT Gateway Edge provisioning with MQTT protocol
 * Device on boarding with Gateway Cloud using MQTT protocol.
-* Sending Data with Paho MQTT Client
+* Sending Data with PAHO MQTT Client
 * Consume Data via IoT Services Cockpit
 
 >NOTE: Use Google Chrome browser.
@@ -21,11 +21,6 @@ This document provides you with the exercises for the hands-on session on SAP Cl
 * People interested in SAP Leonardo and Machine Learning
 
 
-## Goal
-
-The goal of this exercise is to create a new data model in the IoT Service cockpit, to onboard a new device and a new sensor with SAP Gateway Cloud using MQTT protocol, to send data with Paho MQTT Client and finally to consume them via IoT Services Cockpit and APIs
-
-
 
 ## Prerequisites
 
@@ -33,16 +28,16 @@ Here below are prerequisites for this exercise.
 
 * An SAP IoT Service system. It will be provided by your instructor
 * A remote desktop connection app to access the remote system
+* IOT Gateway Edge Build is available in a shared location provided by the instructor
 
 
 ## Steps
 
 1. [Introduction](#introduction)
-1. [Creating device data model](#creating-device-data-model)
+1. [Setup of IOT gateway Edge for MQTT Protocol](#creating-device-data-model)
 1. [Device and sensor onboarding](#device-and-sensor-onboarding)
 1. [Sending messages via MQTT using Paho client](#mqtt-Paho)
 1. [Consuming and viewing sensor data](#consuming-sensor-data)
-1. [Working with commands](#working-with-commands)
 
 
 
@@ -52,114 +47,29 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 
 
 
-### <a name="creating-device-data-model"></a> Creating device data model
-Centralized Device data model provides the schema of device related configurations including the data fields that will be exchanged. Default template is provided and can be downloaded from the SAP Cloud Platform Internet of Things services cockpit. If you have any deviations or additions, a new sensor type can be added to the default central data model. In the below steps, we will extend this default central device data model with the new fields "Soil pH and Moisture" that we will be getting from the device simulator. In this section, you will create few capabilities (measures and commands). A capability can be reused since it can be assigned to multiple sensor types: each capability can have one or many properties.
+### <a name="creating-device-data-model"></a> Setup of IOT gateway Edge for MQTT Protocol
 
-1.	Open the browser and navigate to the IoT Service Cockpit URL and log on with the tenant user credentials, provided by the instructor  
+
+1.	Unzip this Edge Build Archive to a destination folder of your choice. 
 	![](images/02.png)
 
-1.	Use the main menu to navigate to the Device Management -> Capabilities section and click on the "+" sign to add new capabilities like Soil pH and Soil Moisture  
+1.	Open terminal, change to the destination folder and execute build executable from the destination folder location.
+	Linux: ./build.sh MQTT 
+	WIndows: build.bat MQTT
 	![](images/03.png)
-
-1. In the **General information** section enter **Name** as **Soil_pH** and in the **Properties** section enter the following information and click on **Create**. Ensure the capability is created successfully
-
-	| Parameter | Value    |
-	| --------- | -------- |
-	| Name | Soil \_pH     |
-	| Data Type | float    |
-	| Unit Of Measure | pH |
 	
-	![](images/04.png)
-
-1.	Once again navigate to **Capabilities** section and click on the "**+**" sign to add the second capability **Soil_Moisture**  
-	![](images/05.png)   
-
-1. In the **General information** section enter **Name** as **Soil_Moisture** and in the **Properties** section enter the following information and click on **Create**. Ensure the capability is created successfully
-
-	| Parameter | Value      |
-	| --------- | ---------- |
-	| Name | Soil \_Moisture |
-	| Data Type | float      |
-	| Unit Of Measure | %    |
-	
-	![](images/06.png)
-
-1.	Once again navigate to **Capabilities** section and click on the "**+**" sign to add the command Water_Alert  
-
-1. In the **General information** section enter **Name** as **Water_Alert** and in the **Properties** section enter the following information and click on **Create**. Ensure the capability is created successfully
-
-	| Parameter | Value   |
-	| --------- | ------- |
-	| Name | Water\_alert |
-	| Data Type | string  |
-	
-	![](images/08.png)
-
-1. Navigate to **Device Management -> Sensor Types** and click on the "**+**" sign to add a sensor type for the Soil Sensor Type  
-![](images/09.png)
-
-1. In the **General information** section enter Name as Soil_SensorTypeXX, where XX is your workstation ID and in the **Capabilities** section enter and add the earlier created capabilities
-
-	| Capability | Type       |
-	| --------- | ----------- |
-	| Soil_pH | measure       |
-	| Soil_Moisture | measure |
-	| Water_Alert | command   |
-	
-	![](images/10.png)
-	![](images/11.png)
-	
-	Click on **Create**. Ensure the Sensor Type is created successfully
-
-1. Congratulations! You have successfully created a new data model.
-
-### <a name="device-and-sensor-onboarding"></a> Device and sensor onboarding
-Each device exchanges data with a specific protocol (for example: MQTT in this exercise).  Each device corresponds to 1 unique physical node. We need to create physical node that corresponds to a physical device. In the following section, it is described how to create a Device for the MQTT network. Also we onboard all the sensors and Actuators for the Device.
-
-1.	Use the main menu to navigate to the **Device Management -> Devices** section and click on the "**+**" sign to start the device creation process
-
-	>NOTE: As an alternative, devices and sensors can also be created via APIs. In this exercises, we will create it via UI cockpit  
-
-	![](images/12.png)
-
-1.	In the **General Information** section, enter the following information and click on **Create**
-
-	| Parameter | Value |
-	| --------- |----- |
-	| Name | Paho\_Client\_XX |
-	| Gateway |MQTT Network |
-	| Alternate ID | \<leave it blank\> |
-
-	>NOTE: Ignore the Alternate ID as it's optional and is filled on Create. This would be required at later steps to be provided in Paho Client as well    
-
-	![](images/13.png)
-
-1.	In the new device, Sensor tab click on the "**+**" sign to create a new sensor  
-	![](images/14.png)
-
-1.	In the General Information section, enter a name such as "**Soil_Sensor**", select Sensor Type you have created earlier (i.e. Soil\_SensorTypeXX, where **XX** must be replaced with your workstation ID) and ignore the Alternate ID as it's optional. This Soil\_Sensor automatically provides Soil\_pH, Soil\_Moisture and it also supports an alert: these are the capabilities we have previously defined. Once done click on **Add**  
-	![](images/15.png)
-
-1.	The new sensor is created and you should be able to see the **Soil_Sensor** under the **Sensors** tab of the Paho\_Client\_XX device onboarded earlier  
-	![](images/16.png)
-
-1. Be sure that your Paho Client device is selected, choose the **Certificate** tab and click on **Generate Certificate**  
-	![](images/17.png)
-
-1. Choose the Certificate Type **P12** and click **Generate**  
-	![](images/18.png)
-
-1. This will trigger a popup window providing you with a secret key which you must copy and save in notepad. Then click **OK**  
-	![](images/19.png)
-
-1. You can also see the downloaded certificate *Paho\_Client\_XX-device\_certificate.p12* in the Chrome browser status bar. Click on the small down arrow and choose **Show in folder**  
-	![](images/20.png)
-
-
-1. This will make you to understand where the certificate is located. Please keep in mind this location since it will be used in the next section  
-	![](images/20a.png)
-
-1. Congratulations! You have successfully onboarded a new device and a new sensor.
+1.	Script should run successfully and you should see the results as shown in the picture 
+1.	A new folder named config is created which includes the file config_gateway_mqtt.xml. 
+1.	Log on to the Internet of Things service cockpit with the Tenant owner credentials. i.e. User, password
+1.	Go to the right corner of the cockpit, click the user, and download the certification 
+1.	The system starts to download a ZIP file which is named certificates.zip and contains the certificates. 
+1.	Delete certificates folder all content in config directory. 
+1.	Extract certificates.zip Archive content to the certificates folder in the config folder of the Internet of Things Gateway Edge 
+1.	Open the password.properties file in the certificates folder with a text editor. 
+1.	Provide user password details 
+1.	Save the password.properties file. 
+1.	Open config_gateway_mqtt.xml with a text editor 
+1.	Replace 127.0.0.1 with <HOST_NAME> for the brokerName and coreBundles xml tags. 
 
 
 ### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client

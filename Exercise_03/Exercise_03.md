@@ -35,7 +35,7 @@ Here below are prerequisites for this exercise.
 
 1. [Introduction](#introduction)
 1. [Setup of IOT gateway Edge for MQTT Protocol](#creating-device-data-model)
-1. [Device and sensor onboarding](#device-and-sensor-onboarding)
+1. [Device onboarding](#device-onboarding)
 1. [Sending messages via MQTT using Paho client](#mqtt-Paho)
 1. [Consuming and viewing sensor data](#consuming-sensor-data)
 
@@ -82,92 +82,43 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 1.	You must see the status as connected
 1.	This demonstrates that the Gateway Edge MQTT Broker is Active and started. 
 
+### <a name="device-onboarding"></a> Device Onboarding
+Each device exchange data with a specific protocol (for example: MQTT in this exercise). Each device corresponds to 1 unique physical device. We need to create device that corresponds to a physical device. In the following section, it is described how to create a device for the MQTT network.
+
+1.	Navigate to Main Menu Gateways option and expand MQTT Network. Click on Add item in the options list.
+1.	Create device for gateway (please make sure you are using the MQTT gateway of your edge) “Create Device”
+1.	Provide all the details for the device and add create sensor for the device you have created.
 
 ### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client
-In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Cloud and would be visible in the IoT services cockpit and via APIs.
+In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Edge, which will send the data to IOT Core Services and data would be visible in the IoT services cockpit and vis APIs.
 
-1.	Launch the **MQTT Paho Client**, it should be located under the *C:\Student\PahoClient* folder  
+1.	Launch the MQTT PAHO Client. You would have already installed it as part of pre- requisite document. 
 ![](images/21.png)
 
-1. Click on **Run** in case you get the security warning  
-	![](images/22.png)
+1.	Navigate to File Menu   New Connection option. This will open Connection1 Tab.
+1.	Configure Connection1 MQTT Tab with below details:
+	Please take the hostname from the URL provided by your instructor to access IoT services cockpit.
+	ServerURI: tcp://localhost:61618
+	clientID: do not give anything 
+1.	Click on Connect, status should turn to connected as shown in picture 
 
-1.	Click on the "**+**" sign to create a new connection  
-	![](images/23.png)
+Optional:
+1.	Another way to onboard the device is via the MQTT message automatically via Paho client
+	Client ID is the Device alternative ID
+	The payload { "capabilityAlternateId": "1", "sensorAlternateId": "198311070105","measure s": [["55"]] } will create a sensor alternative ID with “198311070105” with default sensor type 0 and capability alternative ID 1.
+	he second message publication is to send the measurement only
+	You can also find the information in your edge gateway log
+1.	Open IoT Cockpit. 
+1.	Navigate to Main Menu Device option and you can see a device is created automatically. 
 
-1.	Configure the **MQTT** tab of **connection1** with this information
-	
-	| Parameter | Value |
-	| --------- | ----- |
-	| Server URI | `ssl://<host_name>:8883` where **\<host\_name\>** is the host part in the cockpit  URL |
-	| Client ID | The AlternateID of the Device Paho\_Client\_XX |
-
-	![](images/24.png)
-
-1.	Click on the **OPTIONS**, select **Enable SSL** and click on the first **Browse...** button to specify the Key Store Location  
-	![](images/25.png)
-
-1.	Change the file extension search criteria to \*.p12 and browse for the *Paho\_Client\_XX-device\_certificate.p12* you have downloaded from IoT Services Cockpit  
-	![](images/26.png)
-
-1. As Key Store Password, specify the client secret you have copied in your notepad. Then click on the second **Browse...** button to locate the Trust Store repository  
-	![](images/27.png)
-
-1. Change the file extension search criteria from \*.jks to \*.\* and go to the folder *\<JRE\_Installation\_Folder\>\jre\lib\security*, in your case it should be *C:\Program Files\Java\jre1.8.0_161\lib\security*. Once there, select the file *cacerts* and click **Open**  
-	![](images/28.png)
-
-1. As Trust Store password, simply use the text "**changeit**"  
-	![](images/29.png)
-
-1.	Go to the **MQTT** tab and click on **Connect**  
-	![](images/30.png)
-
-1.	Status should turn to **Connected** as shown in the picture  
-	![](images/31.png)
-
-1.	In the **Publish** section, enter the topic `measures/<alternate_id>` replacing `alternate_id` with the **Alternate ID** of the device  
-	![](images/32.png)
-
-1. Use the default settings for **QOS**
-
-1. Copy the following JSON script and paste it in a text editor
-
-	```json
-	{
-	"capabilityAlternateId":[
-		"<<< Soil_pH Capability Alternate ID >>>",
-		"<<< Soil_Moisture Capability Alternate ID >>>",
-		"<<< Water_Alert Capability Alternate ID >>>"
-		],
-	"measures":[7,35,"demo"],
-	"sensorAlternateId":"<<< Sensor Alternate ID >>>"
-	}
-	```
-
-1. Replace the **<<< Sensor Alternate ID >>>** with the **Alternate ID** you can read by going on your **Soil\_Sensor** in your **Paho\_Client\_XX** device  
-	![](images/33.png)
-
-1. Then go to **Sensor Types -> Soil_SensorTypeXX**  
-	![](images/34.png)
-
-1. Replace the **<<< Soil_pH Alternate ID >>>** with the Alternate ID of the Soil_pH capability  
-	![](images/35.png)
-
-1. Repeat the previous 2 steps for the other capabilities (Soil_Moisture and Water_Alert). At the end copy the JSON script you have created and paste it in the Message text area of your Paho Client. Then click **Publish**  
-	![](images/36.png)
-
-1. A new line is added to the history on the right  
-	![](images/37.png)
-
-1. Repeat this step several times, each time by changing the values for Soil\_pH and Soil\_Moisture in the  measures section of the JSON file  
-	![](images/38.png)
-
-1. At the end you should have a history with several different pubblications  
-	![](images/39.png)
-
-1. Congratulations! You have successfully sent messages via MQTT using the Paho Client.
-
-
+Publish Messages with MQTT:
+1.	Navigate to Connection1 MQTT tab, Modify the Message options under Publication section as follows:
+Change the temperature values randomly in the “values” entity of MQTT JSON payload. 
+	E.g.  { "capabilityAlternateId": "1",
+		 "sensorAlternateId":
+		 "198311070105","measures"
+		 : [["35"]] }
+1.	Click on Publish with several such different measurement data points. 
 
 ### <a name="consuming-sensor-data"></a> Consuming and viewing sensor data
 This section explains various ways we can consume and visualize the measurements which are sent to IoT Cloud Gateway.

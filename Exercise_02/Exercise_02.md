@@ -113,8 +113,6 @@ Each device exchange data with a specific protocol (for example: REST in this ex
 
 	>NOTE: As an alternative, devices and sensors can also be created via APIs. In this exercises, we will create it via UI cockpit  
 
-	![](images/12.png)
-
 1.	In the **General Information** section, enter the following information and click on **Create**
 
 	| Parameter | Value |

@@ -128,7 +128,7 @@ Each device exchange data with a specific protocol (for example: REST in this ex
 1.	In the new device, Sensor tab click on the "**+**" sign to create a new sensor  
 	![](images/14.png)
 
-1.	In the General Information section, enter a name such as "**Soil_Sensor_REST", select Sensor Type you have created earlier (i.e. Soil\_SensorTypeXX, where **XX** must be replaced with your workstation ID) and ignore the Alternate ID as it's optional. This Soil\_Sensor automatically provides Soil\_pH, Soil\_Moisture and it also supports an alert: these are the capabilities we have previously defined. Once done click on **Add**  
+1.	In the General Information section, enter a name such as "**Soil_Sensor_REST**", select Sensor Type you have created earlier and ignore the Alternate ID as it's optional. This Soil\_Sensor automatically provides Soil\_pH, Soil\_Moisture and it also supports an alert: these are the capabilities we have previously defined. Once done click on **Add**  
 	![](images/15.png)
 
 1.	The new sensor is created and you should be able to see the **Soil_Sensor_REST under the **Sensors** tab of the REST\_Client\_XX device onboarded earlier  
@@ -147,7 +147,7 @@ Each device exchange data with a specific protocol (for example: REST in this ex
 	![](images/20.png)
 
 
-1. This will make you to understand where the certificate is located. Please keep in mind this location since it will be used in the next section  
+1. This will make you to understand where the certificate is located. Please keep in mind this location since it will be used in the next section， and change the file name to client.pem  
 	![](images/20a.png)
 
 1. Congratulations! You have successfully onboarded a new device and a new sensor.

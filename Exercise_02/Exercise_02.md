@@ -202,8 +202,8 @@ You have completed the exercise!
 You are now able to:
 
 * create a new Data Model
-* onboard Devices with Gateway Cloud using MQTT protocol
-* send Data with Paho MQTT Client
+* onboard Devices with Gateway Cloud using REST protocol
+* send Data with curl
 * consume Data via IoT Services Cockpit
 
 

@@ -123,7 +123,7 @@ Each device exchange data with a specific protocol (for example: REST in this ex
 
 	>NOTE: Ignore the Alternate ID as it's optional and is filled on Create. This would be required at later steps to be provided in REST Client as well    
 
-	![](images/13.png)
+	![](images/12.png)
 
 1.	In the new device, Sensor tab click on the "**+**" sign to create a new sensor  
 	![](images/14.png)

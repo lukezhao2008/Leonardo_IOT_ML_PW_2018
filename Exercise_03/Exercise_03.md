@@ -49,36 +49,46 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 ### <a name="creating-device-data-model"></a> Setup of IOT gateway Edge for MQTT Protocol
 
 
-1.	Unzip this Edge Build Archive to a destination folder of your choice. 
-	![](images/01.png)
-
+1.	Unzip this Edge Build Archive to a destination folder of your choice.
 1.	Open terminal, change to the destination folder and execute build executable from the destination folder location.
 	Linux: ./build.sh MQTT 
 	WIndows: build.bat MQTT
-	![](images/0.png)
+	![](images/01.png)
 	
 1.	Script should run successfully and you should see the results as shown in the picture 
 1.	A new folder named config is created which includes the file config_gateway_mqtt.xml. 
 1.	Log on to the Internet of Things service cockpit with the Tenant owner credentials. i.e. User, password
-1.	Go to the right corner of the cockpit, click the user, and download the certification 
+	![](images/02.png)
+	
+1.	Go to the right corner of the cockpit, click the user, and download the certification
+	![](images/03.png)
 1.	The system starts to download a ZIP file which is named certificates.zip and contains the certificates. 
 1.	Delete certificates folder all content in config directory. 
 1.	Extract certificates.zip Archive content to the certificates folder in the config folder of the Internet of Things Gateway Edge 
 1.	Open the password.properties file in the certificates folder with a text editor. 
-1.	Provide user password details 
+1.	Provide user password details
+	![](images/04.png)
 1.	Save the password.properties file. 
 1.	Open config_gateway_mqtt.xml with a text editor 
-1.	Replace 127.0.0.1 with <HOST_NAME> for the brokerName and coreBundles xml tags. 
+1.	Replace 127.0.0.1 with <HOST_NAME> for the brokerName and coreBundles xml tags.
+	![](images/05.png)
+	After changing the values, it should be something like below:
+	![](images/06.png)
 1.	Open the terminal (macOS) or command line tool CMD (Windows) and change the directory to the path of the extracted ZIP file Internet of Things Gateway Edge. 
 1.	Launch gateway.bat in the extracted folder. 
 1.	Edge gateway onboarding will start
+	![](images/07.png)
 1.	Navigate to Main Menu Gateways option. 
 1.	You can see new MQTT Network created with the address provided in the gatewayAddress of gateway configuration
+	![](images/08.png)
 1.	Also, you can see that Gateway Edge is successfully connected and online. 
+	![](images/09.png)
 1.	Launch the MQTT simulator Client. 
 1.	In Connection 1 page, Navigate to MQTT Tab Under Connection options，Please provide server URI as following: tcp://localhost:61618
+	![](images/10.png)
 1.	Please Click on Connect Button. 
 1.	You must see the status as connected
+	![](images/11.png)
 1.	This demonstrates that the Gateway Edge MQTT Broker is Active and started. 
 
 ### <a name="device-onboarding"></a> Device Onboarding
@@ -86,20 +96,23 @@ Each device exchange data with a specific protocol (for example: MQTT in this ex
 
 1.	Navigate to Main Menu Gateways option and expand MQTT Network. Click on Add item in the options list.
 1.	Create device for gateway (please make sure you are using the MQTT gateway of your edge) “Create Device”
+	![](images/12.png)
 1.	Provide all the details for the device and add create sensor for the device you have created.
+	![](images/13.png)
 
 ### <a name="mqtt-MQTT simulator"></a> Sending messages via MQTT using MQTT simulator client
 In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Edge, which will send the data to IOT Core Services and data would be visible in the IoT services cockpit and vis APIs.
 
 1.	Launch the MQTT MQTT simulator Client. You would have already installed it as part of pre- requisite document. 
-![](images/21.png)
-
-1.	Navigate to File Menu   New Connection option. This will open Connection1 Tab.
+1.	Navigate to File Menu -> New Connection option. This will open Connection1 Tab.
+	![](images/14.png)
 1.	Configure Connection1 MQTT Tab with below details:
 	Please take the hostname from the URL provided by your instructor to access IoT services cockpit.
 	ServerURI: tcp://localhost:61618
 	clientID: do not give anything 
+	![](images/15.png)
 1.	Click on Connect, status should turn to connected as shown in picture 
+	![](images/16.png)
 
 Optional:
 1.	Another way to onboard the device is via the MQTT message automatically via MQTT simulator client
@@ -107,8 +120,11 @@ Optional:
 	The payload { "capabilityAlternateId": "1", "sensorAlternateId": "198311070105","measure s": [["55"]] } will create a sensor alternative ID with “198311070105” with default sensor type 0 and capability alternative ID 1.
 	he second message publication is to send the measurement only
 	You can also find the information in your edge gateway log
+	![](images/17.png)
+	![](images/18.png)
 1.	Open IoT Cockpit. 
-1.	Navigate to Main Menu Device option and you can see a device is created automatically. 
+1.	Navigate to Main Menu Device option and you can see a device is created automatically.
+	![](images/19.png)
 
 Publish Messages with MQTT:
 1.	Navigate to Connection1 MQTT tab, Modify the Message options under Publication section as follows:
@@ -118,6 +134,7 @@ Change the temperature values randomly in the “values” entity of MQTT JSON p
 		 "198311070105","measures"
 		 : [["35"]] }
 1.	Click on Publish with several such different measurement data points. 
+	![](images/20.png)
 
 ### <a name="consuming-sensor-data"></a> Consuming and viewing sensor data
 This section explains various ways we can consume and visualize the measurements which are sent to IoT Cloud Gateway.

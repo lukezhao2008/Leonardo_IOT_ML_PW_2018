@@ -37,7 +37,7 @@ Here below are prerequisites for this exercise.
 
 ## Steps
 
-1. [Creating device data model](#creating-device-data-model)
+1. [Creating device data model (Same as Exercise_01)](#creating-device-data-model)
 1. [Device and sensor onboarding](#device-and-sensor-onboarding)
 1. [Sending messages via MQTT using Paho client](#mqtt-Paho)
 1. [Consuming and viewing sensor data](#consuming-sensor-data)
@@ -130,22 +130,22 @@ EEach device exchange data with a specific protocol (for example: REST in this e
 1.	In the new device, Sensor tab click on the "**+**" sign to create a new sensor  
 	![](images/14.png)
 
-1.	In the General Information section, enter a name such as "**Soil_Sensor**", select Sensor Type you have created earlier (i.e. Soil\_SensorTypeXX, where **XX** must be replaced with your workstation ID) and ignore the Alternate ID as it's optional. This Soil\_Sensor automatically provides Soil\_pH, Soil\_Moisture and it also supports an alert: these are the capabilities we have previously defined. Once done click on **Add**  
+1.	In the General Information section, enter a name such as "**Soil_Sensor_REST", select Sensor Type you have created earlier (i.e. Soil\_SensorTypeXX, where **XX** must be replaced with your workstation ID) and ignore the Alternate ID as it's optional. This Soil\_Sensor automatically provides Soil\_pH, Soil\_Moisture and it also supports an alert: these are the capabilities we have previously defined. Once done click on **Add**  
 	![](images/15.png)
 
-1.	The new sensor is created and you should be able to see the **Soil_Sensor** under the **Sensors** tab of the Paho\_Client\_XX device onboarded earlier  
+1.	The new sensor is created and you should be able to see the **Soil_Sensor_REST under the **Sensors** tab of the REST\_Client\_XX device onboarded earlier  
 	![](images/16.png)
 
-1. Be sure that your Paho Client device is selected, choose the **Certificate** tab and click on **Generate Certificate**  
+1. Be sure that your REST Client device is selected, choose the **Certificate** tab and click on **Generate Certificate**  
 	![](images/17.png)
 
-1. Choose the Certificate Type **P12** and click **Generate**  
+1. Choose the Certificate Type **pem** and click **Generate**  
 	![](images/18.png)
 
 1. This will trigger a popup window providing you with a secret key which you must copy and save in notepad. Then click **OK**  
 	![](images/19.png)
 
-1. You can also see the downloaded certificate *Paho\_Client\_XX-device\_certificate.p12* in the Chrome browser status bar. Click on the small down arrow and choose **Show in folder**  
+1. You can also see the downloaded certificate *REST\_Client\_XX-device\_certificate.pem* in the Chrome browser status bar. Click on the small down arrow and choose **Show in folder**  
 	![](images/20.png)
 
 
@@ -155,89 +155,33 @@ EEach device exchange data with a specific protocol (for example: REST in this e
 1. Congratulations! You have successfully onboarded a new device and a new sensor.
 
 
-### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client
-In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Cloud and would be visible in the IoT services cockpit and via APIs.
+### <a name="mqtt-Paho"></a> Sending messages via REST using curl
+In this step, we will send the data from Device Simulator that supports REST protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Cloud and would be visible in the IoT services cockpit and via APIs.
 
-1.	Launch the **MQTT Paho Client**, it should be located under the *C:\Student\PahoClient* folder  
+1.	Open the terminal (macOS) or command line tool CMD (Windows) and change the directory to the path of the extracted REST device certificate.  
 ![](images/21.png)
 
-1. Click on **Run** in case you get the security warning  
+1. Check the version of curl.  
 	![](images/22.png)
+	Remember it is with SecureTransport or without.
+	![](images/22a.png)
 
 1.	Click on the "**+**" sign to create a new connection  
 	![](images/23.png)
 
-1.	Configure the **MQTT** tab of **connection1** with this information
+1.	Send data using curl to the device.
+	curl -v -k -E client.pem:<SECRET_KEY> -H "Content-Type:application/json" -d "<ENCODED_JSON_MESSAGE>" <REST_ENDPOINT>
 	
-	| Parameter | Value |
-	| --------- | ----- |
-	| Server URI | `ssl://<host_name>:8883` where **\<host\_name\>** is the host part in the cockpit  URL |
-	| Client ID | The AlternateID of the Device Paho\_Client\_XX |
+	Sample Code:
+curl -v -k -E client.pem:jJ3fF7dD0rR2rR3wW0eE2tT -H "Content-Type:application/json" -d "{ \"capabilityAlternateId\": \"1\", \"sensorAlternateId\": \"0:0:0:0\", \"measures\": [{\"Temperature\": \"25\"}] }" https://demo.eu10.cp.iot.sap/iot/gateway/rest/measures/11223344
 
+
+1.	Check the response code in the terminal, it should contains "HTTP/1.1 200 OK". 
 	![](images/24.png)
 
-1.	Click on the **OPTIONS**, select **Enable SSL** and click on the first **Browse...** button to specify the Key Store Location  
-	![](images/25.png)
 
-1.	Change the file extension search criteria to \*.p12 and browse for the *Paho\_Client\_XX-device\_certificate.p12* you have downloaded from IoT Services Cockpit  
-	![](images/26.png)
-
-1. As Key Store Password, specify the client secret you have copied in your notepad. Then click on the second **Browse...** button to locate the Trust Store repository  
-	![](images/27.png)
-
-1. Change the file extension search criteria from \*.jks to \*.\* and go to the folder *\<JRE\_Installation\_Folder\>\jre\lib\security*, in your case it should be *C:\Program Files\Java\jre1.8.0_161\lib\security*. Once there, select the file *cacerts* and click **Open**  
-	![](images/28.png)
-
-1. As Trust Store password, simply use the text "**changeit**"  
-	![](images/29.png)
-
-1.	Go to the **MQTT** tab and click on **Connect**  
-	![](images/30.png)
-
-1.	Status should turn to **Connected** as shown in the picture  
-	![](images/31.png)
-
-1.	In the **Publish** section, enter the topic `measures/<alternate_id>` replacing `alternate_id` with the **Alternate ID** of the device  
-	![](images/32.png)
-
-1. Use the default settings for **QOS**
-
-1. Copy the following JSON script and paste it in a text editor
-
-	```json
-	{
-	"capabilityAlternateId":[
-		"<<< Soil_pH Capability Alternate ID >>>",
-		"<<< Soil_Moisture Capability Alternate ID >>>",
-		"<<< Water_Alert Capability Alternate ID >>>"
-		],
-	"measures":[7,35,"demo"],
-	"sensorAlternateId":"<<< Sensor Alternate ID >>>"
-	}
-	```
-
-1. Replace the **<<< Sensor Alternate ID >>>** with the **Alternate ID** you can read by going on your **Soil\_Sensor** in your **Paho\_Client\_XX** device  
-	![](images/33.png)
-
-1. Then go to **Sensor Types -> Soil_SensorTypeXX**  
-	![](images/34.png)
-
-1. Replace the **<<< Soil_pH Alternate ID >>>** with the Alternate ID of the Soil_pH capability  
-	![](images/35.png)
-
-1. Repeat the previous 2 steps for the other capabilities (Soil_Moisture and Water_Alert). At the end copy the JSON script you have created and paste it in the Message text area of your Paho Client. Then click **Publish**  
-	![](images/36.png)
-
-1. A new line is added to the history on the right  
-	![](images/37.png)
-
-1. Repeat this step several times, each time by changing the values for Soil\_pH and Soil\_Moisture in the  measures section of the JSON file  
-	![](images/38.png)
-
-1. At the end you should have a history with several different pubblications  
-	![](images/39.png)
-
-1. Congratulations! You have successfully sent messages via MQTT using the Paho Client.
+	Sample Code:
+1. Congratulations! You have successfully sent messages via REST using curl.
 
 
 

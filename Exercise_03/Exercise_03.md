@@ -70,6 +70,17 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 1.	Save the password.properties file. 
 1.	Open config_gateway_mqtt.xml with a text editor 
 1.	Replace 127.0.0.1 with <HOST_NAME> for the brokerName and coreBundles xml tags. 
+1.	Open the terminal (macOS) or command line tool CMD (Windows) and change the directory to the path of the extracted ZIP file Internet of Things Gateway Edge. 
+1.	Launch gateway.bat in the extracted folder. 
+1.	Edge gateway onboarding will start
+1.	Navigate to Main Menu Gateways option. 
+1.	You can see new MQTT Network created with the address provided in the gatewayAddress of gateway configuration
+1.	Also, you can see that Gateway Edge is successfully connected and online. 
+1.	Launch the PAHO Client. 
+1.	In Connection 1 page, Navigate to MQTT Tab Under Connection options，Please provide server URI as following: tcp://localhost:61618
+1.	Please Click on Connect Button. 
+1.	You must see the status as connected
+1.	This demonstrates that the Gateway Edge MQTT Broker is Active and started. 
 
 
 ### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client

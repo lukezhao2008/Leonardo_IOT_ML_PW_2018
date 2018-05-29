@@ -107,7 +107,7 @@ Centralized Device data model provides the schema of device related configuratio
 1. Congratulations! You have successfully created a new data model.
 
 ### <a name="device-and-sensor-onboarding"></a> Device and sensor onboarding
-EEach device exchange data with a specific protocol (for example: REST in this exercise). We need to create that corresponds to a physical device. In the following section, it is described how to create a device for the REST network. Also we onboard all the sensors and Actuators for the Device.
+Each device exchange data with a specific protocol (for example: REST in this exercise). We need to create that corresponds to a physical device. In the following section, it is described how to create a device for the REST network. Also we onboard all the sensors and Actuators for the Device.
 
 1.	Use the main menu to navigate to the **Device Management -> Devices** section and click on the "**+**" sign to start the device creation process
 

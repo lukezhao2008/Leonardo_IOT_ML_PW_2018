@@ -164,9 +164,6 @@ In this step, we will send the data from Device Simulator that supports REST pro
 	Remember it is with SecureTransport or without.
 	![](images/22a.png)
 
-1.	Click on the "**+**" sign to create a new connection  
-	![](images/23.png)
-
 1.	Send data using curl to the device.
 	curl -v -k -E client.pem:<SECRET_KEY> -H "Content-Type:application/json" -d "<ENCODED_JSON_MESSAGE>" <REST_ENDPOINT>
 	

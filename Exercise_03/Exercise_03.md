@@ -9,7 +9,7 @@ This document provides you with the exercises for the hands-on session on SAP Cl
 
 * IOT Gateway Edge provisioning with MQTT protocol
 * Device on boarding with Gateway Cloud using MQTT protocol.
-* Sending Data with PAHO MQTT Client
+* Sending Data with MQTT Simulator Client
 * Consume Data via IoT Services Cockpit
 
 >NOTE: Use Google Chrome browser.
@@ -36,14 +36,13 @@ Here below are prerequisites for this exercise.
 1. [Introduction](#introduction)
 1. [Setup of IOT gateway Edge for MQTT Protocol](#creating-device-data-model)
 1. [Device onboarding](#device-onboarding)
-1. [Sending messages via MQTT using Paho client](#mqtt-Paho)
+1. [Sending messages via MQTT using MQTT simulator client](#mqtt-MQTT simulator)
 1. [Consuming and viewing sensor data](#consuming-sensor-data)
 
 
 
 ### <a name="introduction"></a> Introduction
 The SAP Cloud Platform Internet of Things Service enables customers and partners to develop, customize, and operate IoT business applications in the cloud. IoT Services provides Lifecycle management at scale for IoT devices from onboarding to decommissioning. It also provides a way to securely connect to remote devices over a broad variety of IoT protocols. It provides gateway Edge which provides on-premise IoT edge processing and also gateway cloud which does centralized cloud based processing. The **IoT cockpit** is the user interface of the solution and provides access to various functions. It is the main interface for users to interact with the Internet of Things core service. It can be used for creating users and tenants, for creating device data models, for device onboarding and for adding new networks. It can also be used to deploy interceptors, retrieve network logs, visualize the data which are being ingested via IoT devices/sensors.  
-	![](images/01.png)
 
 
 
@@ -51,12 +50,12 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 
 
 1.	Unzip this Edge Build Archive to a destination folder of your choice. 
-	![](images/02.png)
+	![](images/01.png)
 
 1.	Open terminal, change to the destination folder and execute build executable from the destination folder location.
 	Linux: ./build.sh MQTT 
 	WIndows: build.bat MQTT
-	![](images/03.png)
+	![](images/0.png)
 	
 1.	Script should run successfully and you should see the results as shown in the picture 
 1.	A new folder named config is created which includes the file config_gateway_mqtt.xml. 
@@ -76,7 +75,7 @@ The SAP Cloud Platform Internet of Things Service enables customers and partners
 1.	Navigate to Main Menu Gateways option. 
 1.	You can see new MQTT Network created with the address provided in the gatewayAddress of gateway configuration
 1.	Also, you can see that Gateway Edge is successfully connected and online. 
-1.	Launch the PAHO Client. 
+1.	Launch the MQTT simulator Client. 
 1.	In Connection 1 page, Navigate to MQTT Tab Under Connection options，Please provide server URI as following: tcp://localhost:61618
 1.	Please Click on Connect Button. 
 1.	You must see the status as connected
@@ -89,10 +88,10 @@ Each device exchange data with a specific protocol (for example: MQTT in this ex
 1.	Create device for gateway (please make sure you are using the MQTT gateway of your edge) “Create Device”
 1.	Provide all the details for the device and add create sensor for the device you have created.
 
-### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client
+### <a name="mqtt-MQTT simulator"></a> Sending messages via MQTT using MQTT simulator client
 In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Edge, which will send the data to IOT Core Services and data would be visible in the IoT services cockpit and vis APIs.
 
-1.	Launch the MQTT PAHO Client. You would have already installed it as part of pre- requisite document. 
+1.	Launch the MQTT MQTT simulator Client. You would have already installed it as part of pre- requisite document. 
 ![](images/21.png)
 
 1.	Navigate to File Menu   New Connection option. This will open Connection1 Tab.
@@ -103,7 +102,7 @@ In this step, we will send the data from Device Simulator that supports MQTT pro
 1.	Click on Connect, status should turn to connected as shown in picture 
 
 Optional:
-1.	Another way to onboard the device is via the MQTT message automatically via Paho client
+1.	Another way to onboard the device is via the MQTT message automatically via MQTT simulator client
 	Client ID is the Device alternative ID
 	The payload { "capabilityAlternateId": "1", "sensorAlternateId": "198311070105","measure s": [["55"]] } will create a sensor alternative ID with “198311070105” with default sensor type 0 and capability alternative ID 1.
 	he second message publication is to send the measurement only
@@ -123,7 +122,7 @@ Change the temperature values randomly in the “values” entity of MQTT JSON p
 ### <a name="consuming-sensor-data"></a> Consuming and viewing sensor data
 This section explains various ways we can consume and visualize the measurements which are sent to IoT Cloud Gateway.
 
-1. Select your **Paho Client** device in the cockpit, go to the **Data Visualization** tab, specify your **Sensor** - Soil_Sensor, a **capability** - like Soil_pH and the **property** you want to analyze and click on the **Refresh** button. You should get a chart with all the data  
+1. Select your **MQTT simulator Client** device in the cockpit, go to the **Data Visualization** tab, specify your **Sensor** - Soil_Sensor, a **capability** - like Soil_pH and the **property** you want to analyze and click on the **Refresh** button. You should get a chart with all the data  
 	![](images/40.png)
 
 1.	Feel free to do the same for the **Soil_Moisture** capability  
@@ -137,9 +136,6 @@ You have completed the exercise!
 You are now able to:
 
 * create a new Data Model
-* onboard Devices with Gateway Cloud using MQTT protocol
-* send Data with Paho MQTT Client
+* onboard Devices with Gateway Edge using MQTT protocol
+* send Data with MQTT Simulator Client
 * consume Data via IoT Services Cockpit
-
-
-Please proceed with next exercise.

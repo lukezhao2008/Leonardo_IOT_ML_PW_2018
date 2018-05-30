@@ -4,7 +4,7 @@
 
 # PREREQUISITES
 
-- [Prerequisites for the exercises](Prerequisites/Prerequisites.md)
+- [Prerequisites for the exercises (Ignore it for toyda's hands-on session)](Prerequisites/Prerequisites.md)
 
 # INDEX OF EXERCISES 
 

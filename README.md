@@ -1,6 +1,11 @@
 # SAP Leonardo IOT ML Powerweek 2018
 ## Exercises
 
+# Environment
+https://45b74cc9-f700-4206-94dd-8abe467d179f.eu10.cp.iot.sap/iot/cockpit/#/welcome
+
+Username: userxx (e.g. user02)
+Password: Sap@123456
 
 # PREREQUISITES
 

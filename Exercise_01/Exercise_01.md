@@ -165,6 +165,11 @@ Each device exchanges data with a specific protocol (for example: MQTT in this e
 ### <a name="mqtt-Paho"></a> Sending messages via MQTT using Paho client
 In this step, we will send the data from Device Simulator that supports MQTT protocol. We have already on-boarded this simulator device during previous steps. Once we send the data, it would be received by Internet of Things Gateway Cloud and would be visible in the IoT services cockpit and via APIs.
 
+For Mac user, we can use MQTT.fx.
+
+One command required to convert pem to ks file.
+openssl pkcs12 -export -in certificate.pem -inkey certificate.pem -out client.ks
+
 1.	Launch the **MQTT Paho Client**, it should be located under the *C:\Student\PahoClient* folder  
 ![](images/21.png)
 

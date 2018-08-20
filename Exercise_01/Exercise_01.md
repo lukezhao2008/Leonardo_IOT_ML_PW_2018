@@ -202,12 +202,13 @@ In this step, we will send the data from Device Simulator that supports MQTT pro
 	```json
 	{
 	"capabilityAlternateId":[
-		"<<< Soil_pH Capability Alternate ID >>>",
-		"<<< Soil_Moisture Capability Alternate ID >>>",
-		],
-	"measures":[7,35],
+	"<<< Soil_pH Capability Alternate ID >>>",
+	"<<< Soil_Moisture Capability Alternate ID >>>"
+	],
+	"measures":["7","35"],
 	"sensorAlternateId":"<<< Sensor Alternate ID >>>"
 	}
+
 	```
 
 1. Replace the **<<< Sensor Alternate ID >>>** with the **Alternate ID** you can read by going on your **gh_soil_sensor_XX** in your **gh_soil_device_XX** device  
